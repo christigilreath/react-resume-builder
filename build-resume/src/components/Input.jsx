@@ -1,25 +1,11 @@
-function Input({
-  key,
-  name,
-  label,
-  type,
-  placeholder,
-  value,
-  className,
-  onChange,
-  required,
-}) {
+function Input({ name, type, value, handleInputChange }) {
   return (
     <>
-      <label htmlFor={name}>{label}</label>
       <input
         name={name}
         type={type}
-        placeholder={placeholder}
         value={value}
-        className={className}
-        onChange={onChange}
-        required={required}
+        onChange={handleInputChange}
       />
     </>
   );
