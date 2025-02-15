@@ -1,12 +1,16 @@
-function Input({ name, type, value, handleInputChange }) {
+function Input({ labelTxt, name, type, placeholder, value, onInput }) {
   return (
     <>
-      <input
-        name={name}
-        type={type}
-        value={value}
-        onChange={handleInputChange}
-      />
+      <label>
+        {labelTxt}
+        <input
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onInput={onInput}
+        />
+      </label>
     </>
   );
 }

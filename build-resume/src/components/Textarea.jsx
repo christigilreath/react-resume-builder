@@ -1,9 +1,12 @@
-function TextArea({ name, handleInputChange }) {
+function Textarea({ name, onInput }) {
   return (
     <>
-      <textarea name={name} rows={4} cols={40} onChange={handleInputChange} />
+      <label>
+        {labelTxt}
+        <textarea name={name} rows={4} cols={40} onInput={onInput} />
+      </label>
     </>
   );
 }
 
-export default TextArea;
+export default Textarea;
