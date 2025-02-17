@@ -1,80 +1,87 @@
 import { useState } from "react";
 
-import GetInfoSection from "./GetInfoSection.jsx";
+import Form from "./Form.jsx";
 
 function GeneralInformationSection() {
-  const [submit, setSubmit] = useState(false);
-  const [generalInfo, setGeneralInfo] = useState({
-    first: "",
-    last: "",
-    phone: "",
-    email: "",
-  });
-  const [showForm, setShowForm] = useState(false);
+  const [submitForm, setSubmitForm] = useState(false);
 
-  const inputs = [
+  const [inputs, setInputs] = useState([
     {
+      element: "input",
       name: "first",
       label: "First Name: ",
       type: "text",
       placeholder: "John",
-
-      value: generalInfo.first,
+      value: "",
     },
     {
+      element: "input",
       name: "last",
       label: "Last Name: ",
       type: "text",
       placeholder: "Smith",
-
-      value: generalInfo.last,
+      value: "",
     },
     {
+      element: "input",
       name: "phone",
       label: "Telephone: ",
       type: "tel",
       placeholder: "555-555-5555",
-
-      value: generalInfo.phone,
+      value: "",
     },
     {
+      element: "input",
       name: "email",
       label: "Email: ",
       type: "email",
       placeholder: "abc@123.com",
-      // onChange: handleChange,
-      value: generalInfo.email,
+      value: "",
     },
-  ];
-
-  function generalSubmit() {
-    setSubmit(true);
-  }
-  function editInfo() {
+  ]);
+  const [showForm, setShowForm] = useState(false);
+  function handleAddForm() {
     setShowForm(true);
-    setSubmit(false);
   }
-  if (submit) {
-    return (
-      <>
-        {Object.values(generalInfo).map((value, index) => (
-          <p key={index}>{value}</p>
-        ))}
-        <button onClick={editInfo}>Edit</button>
-      </>
-    );
+  function handleEditClick() {
+    setShowForm(true);
+    setSubmitForm(false);
   }
+  function handleCancelClick() {
+    setShowForm(false);
+    setSubmitForm(false);
+    const newInputs = inputs.map((input) => {
+      input.value = "";
+      return input;
+    });
+    setInputs(newInputs);
+  }
+
   return (
-    <GetInfoSection
-      sectionName="General Information"
-      showBtnText="Add Information"
-      inputs={inputs}
-      info={generalInfo}
-      setInfo={setGeneralInfo}
-      customSubmit={generalSubmit}
-      showForm={showForm}
-      setShowForm={setShowForm}
-    />
+    <>
+      <h1>General Information</h1>
+      {submitForm ? (
+        <>
+          {inputs.map((input, index) => {
+            return <p key={index}>{input.value}</p>;
+          })}
+          <button onClick={handleEditClick}>Edit</button>
+          <button onClick={handleCancelClick}>Delete</button>
+        </>
+      ) : showForm ? (
+        <>
+          <Form
+            inputs={inputs}
+            setInputs={setInputs}
+            setShowForm={setShowForm}
+            setSubmitForm={setSubmitForm}
+            handleCancelClick={handleCancelClick}
+          />
+        </>
+      ) : (
+        <button onClick={handleAddForm}>Add Information</button>
+      )}
+    </>
   );
 }
 

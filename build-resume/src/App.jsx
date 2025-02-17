@@ -3,7 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import GeneralInformationSection from "./components/GeneralInformationSection.jsx";
-
+import Form from "./components/Form.jsx";
 import SchoolSection from "./components/SchoolSection.jsx";
 import ExperienceSection from "./components/ExperienceSection.jsx";
 function App() {
@@ -19,10 +19,11 @@ function App() {
   }
   return (
     <>
+      {/* <Form inputs={inputs} /> */}
       <GeneralInformationSection />
       {/* <Education onChange={onChange} onSubmit={onSubmit} /> */}
-      <SchoolSection />
-      <ExperienceSection />
+      {/* <SchoolSection /> */}
+      {/* <ExperienceSection /> */}
     </>
   );
 }
