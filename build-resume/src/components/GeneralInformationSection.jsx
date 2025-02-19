@@ -1,87 +1,60 @@
 import { useState } from "react";
 
-import Form from "./Form.jsx";
-
 function GeneralInformationSection() {
-  const [submitForm, setSubmitForm] = useState(false);
-
-  const [inputs, setInputs] = useState([
-    {
-      element: "input",
-      name: "first",
-      label: "First Name: ",
-      type: "text",
-      placeholder: "John",
-      value: "",
-    },
-    {
-      element: "input",
-      name: "last",
-      label: "Last Name: ",
-      type: "text",
-      placeholder: "Smith",
-      value: "",
-    },
-    {
-      element: "input",
-      name: "phone",
-      label: "Telephone: ",
-      type: "tel",
-      placeholder: "555-555-5555",
-      value: "",
-    },
-    {
-      element: "input",
-      name: "email",
-      label: "Email: ",
-      type: "email",
-      placeholder: "abc@123.com",
-      value: "",
-    },
-  ]);
-  const [showForm, setShowForm] = useState(false);
-  function handleAddForm() {
-    setShowForm(true);
-  }
-  function handleEditClick() {
-    setShowForm(true);
-    setSubmitForm(false);
-  }
-  function handleCancelClick() {
-    setShowForm(false);
-    setSubmitForm(false);
-    const newInputs = inputs.map((input) => {
-      input.value = "";
-      return input;
-    });
-    setInputs(newInputs);
-  }
+  const [info, setInfo] = useState({
+    first: "",
+    last: "",
+    telephone: "",
+    email: "",
+  });
+  const [showInputs, setShowInputs] = useState(true);
 
   return (
-    <>
+    <section>
       <h1>General Information</h1>
-      {submitForm ? (
+      {showInputs ? (
         <>
-          {inputs.map((input, index) => {
-            return <p key={index}>{input.value}</p>;
-          })}
-          <button onClick={handleEditClick}>Edit</button>
-          <button onClick={handleCancelClick}>Delete</button>
-        </>
-      ) : showForm ? (
-        <>
-          <Form
-            inputs={inputs}
-            setInputs={setInputs}
-            setShowForm={setShowForm}
-            setSubmitForm={setSubmitForm}
-            handleCancelClick={handleCancelClick}
-          />
+          <label>
+            First Name:{" "}
+            <input
+              value={info.first}
+              onChange={(e) => setInfo({ ...info, first: e.target.value })}
+            />
+          </label>
+          <label>
+            Last name:{" "}
+            <input
+              value={info.last}
+              onChange={(e) => setInfo({ ...info, last: e.target.value })}
+            />
+          </label>
+          <label>
+            Telephone Number:{" "}
+            <input
+              value={info.telephone}
+              onChange={(e) => setInfo({ ...info, telephone: e.target.value })}
+            />
+          </label>
+          <label>
+            Email:{" "}
+            <input
+              value={info.email}
+              onChange={(e) => setInfo({ ...info, email: e.target.value })}
+            />
+          </label>
+          <button onClick={() => setShowInputs(false)}>Add Information</button>
         </>
       ) : (
-        <button onClick={handleAddForm}>Add Information</button>
+        <>
+          <p>
+            {info.first} {info.last}
+          </p>
+          <p>{info.telephone}</p>
+          <p>{info.email}</p>
+          <button onClick={() => setShowInputs(true)}>Edit</button>
+        </>
       )}
-    </>
+    </section>
   );
 }
 
